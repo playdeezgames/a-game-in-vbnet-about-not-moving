@@ -19,6 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AGIVNANM.Data\AGIVNANM.Data.vbproj" />
     <ProjectReference Include="..\SPLORR.Data\SPLORR.Data.vbproj" />
     <ProjectReference Include="..\SPLORR.Game\SPLORR.Game.vbproj" />
   </ItemGroup>

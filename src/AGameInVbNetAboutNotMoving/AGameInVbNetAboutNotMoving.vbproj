@@ -30,7 +30,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Spectre.Console" Version="0.44.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AGIVNANM.Game\AGIVNANM.Game.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="AGIVNANM.Data" />
+    <Import Include="AGIVNANM.Game" />
+    <Import Include="Spectre.Console" />
+    <Import Include="SPLORR.Data" />
+    <Import Include="SPLORR.Game" />
   </ItemGroup>
 
 </Project>
