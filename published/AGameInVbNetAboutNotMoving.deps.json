@@ -10,6 +10,7 @@
       "AGameInVbNetAboutNotMoving/1.0.0": {
         "dependencies": {
           "AGIVNANM.Game": "1.0.0",
+          "Spectre.Console": "0.44.0",
           "runtimepack.Microsoft.NETCore.App.Runtime.win-x64": "5.0.16"
         },
         "runtime": {
@@ -863,6 +864,14 @@
           }
         }
       },
+      "Spectre.Console/0.44.0": {
+        "runtime": {
+          "lib/net5.0/Spectre.Console.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.44.0.0"
+          }
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6",
@@ -906,8 +915,18 @@
         }
       },
       "System.Memory/4.5.3": {},
+      "AGIVNANM.Data/1.0.0": {
+        "dependencies": {
+          "Microsoft.Data.Sqlite": "6.0.4",
+          "SPLORR.Data": "1.0.0"
+        },
+        "runtime": {
+          "AGIVNANM.Data.dll": {}
+        }
+      },
       "AGIVNANM.Game/1.0.0": {
         "dependencies": {
+          "AGIVNANM.Data": "1.0.0",
           "SPLORR.Data": "1.0.0",
           "SPLORR.Game": "1.0.0"
         },
@@ -955,6 +974,13 @@
       "path": "microsoft.data.sqlite.core/6.0.4",
       "hashPath": "microsoft.data.sqlite.core.6.0.4.nupkg.sha512"
     },
+    "Spectre.Console/0.44.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QMpKtn5QV1j2nklqDwuRE/XwbDn5jxww+Mt5J6Jn3EeQIzaLcuLyUhCLh/mS8giN6uXbqOV1ep5HlUGxrV1ujQ==",
+      "path": "spectre.console/0.44.0",
+      "hashPath": "spectre.console.0.44.0.nupkg.sha512"
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
       "type": "package",
       "serviceable": true,
@@ -989,6 +1015,11 @@
       "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
       "path": "system.memory/4.5.3",
       "hashPath": "system.memory.4.5.3.nupkg.sha512"
+    },
+    "AGIVNANM.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "AGIVNANM.Game/1.0.0": {
       "type": "project",
