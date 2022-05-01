@@ -16,8 +16,6 @@ Module Program
         AnsiConsole.Write(figlet)
         AnsiConsole.WriteLine("A Production of TheGrumpyGameDev")
         AnsiConsole.WriteLine("For A Jam about making Terminal Based Games in VB.NET")
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = ""}
-        prompt.AddChoice("OK")
-        AnsiConsole.Prompt(prompt)
+        OkPrompt()
     End Sub
 End Module

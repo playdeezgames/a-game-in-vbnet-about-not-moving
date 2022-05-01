@@ -26,4 +26,9 @@
     <ProjectReference Include="..\SPLORR.Data\SPLORR.Data.vbproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Import Include="AGIVNANM.Data" />
+    <Import Include="SPLORR.Data" />
+  </ItemGroup>
+
 </Project>
