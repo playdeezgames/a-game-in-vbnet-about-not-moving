@@ -8,7 +8,7 @@
             prompt.AddChoice(QuitText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case QuitText
-                    done = True
+                    done = AnsiConsole.Confirm("[red]Are you sure you want to quit?[/]", False)
                 Case Else
                     Throw New NotImplementedException
             End Select
