@@ -2,7 +2,6 @@
     Friend Const TableName = "Players"
     Friend Const PlayerIdColumn = "PlayerId"
     Friend Const CharacterIdColumn = CharacterData.CharacterIdColumn
-    Friend Const DayColumn = "Day"
 
     Friend Sub Initialize()
         CharacterData.Initialize()
@@ -11,7 +10,6 @@
             (
                 [{PlayerIdColumn}] INT NOT NULL DEFAULT(1),
                 [{CharacterIdColumn}] INT NOT NULL,
-                [{DayColumn}] INT NOT NULL DEFAULT(1),
                 CHECK([{PlayerIdColumn}]=1),
                 FOREIGN KEY ([{CharacterIdColumn}]) REFERENCES [{CharacterData.TableName}]([{CharacterData.CharacterIdColumn}])
             );")

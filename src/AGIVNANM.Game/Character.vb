@@ -17,4 +17,16 @@
             Return False
         End Get
     End Property
+
+    Public ReadOnly Property Location As Location
+        Get
+            Return New Location(CharacterData.ReadLocation(Id).Value)
+        End Get
+    End Property
+
+    Public ReadOnly Property World As World
+        Get
+            Return Location.World
+        End Get
+    End Property
 End Class

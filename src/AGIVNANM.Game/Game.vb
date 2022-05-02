@@ -1,7 +1,11 @@
-Public Class Game
-    Public Shared Sub Start()
-        Dim location = AGIVNANM.Game.Location.Create(0, 0, LocationType.Dirt)
-        Dim character = AGIVNANM.Game.Character.Create(location, CharacterType.Tree)
-        character.SetAsPlayer()
+Public Module Game
+    Public Sub Start()
+        Dim world = AGIVNANM.Game.World.Create()
+        world.Start()
     End Sub
-End Class
+
+    Public Sub NextDay()
+        Dim player As New PlayerCharacter()
+        player.World.NextDay()
+    End Sub
+End Module

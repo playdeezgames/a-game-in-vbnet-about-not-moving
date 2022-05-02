@@ -1,23 +1,28 @@
 ﻿Module InPlay
     Const GameMenuText = "Game Menu"
+    Const NextDayText = "Next Day"
     Friend Sub Run()
         Dim done = False
         While Not done
             AnsiConsole.Clear()
             Dim character As New PlayerCharacter()
             If character.IsDead Then
-                done = RunDead()
+                done = RunDead(character)
             Else
-                done = RunAlive()
+                done = RunAlive(character)
             End If
         End While
     End Sub
 
-    Private Function RunAlive() As Boolean
+    Private Function RunAlive(character As PlayerCharacter) As Boolean
         AnsiConsole.WriteLine("Yer alive!")
+        AnsiConsole.WriteLine($"Day: {character.World.Day}")
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now what?[/]"}
+        prompt.AddChoice(NextDayText)
         prompt.AddChoice(GameMenuText)
         Select Case AnsiConsole.Prompt(prompt)
+            Case NextDayText
+                Return NextDay.Run()
             Case GameMenuText
                 Return GameMenu.Run()
             Case Else
@@ -26,7 +31,7 @@
         Return False
     End Function
 
-    Private Function RunDead() As Boolean
+    Private Function RunDead(character As PlayerCharacter) As Boolean
         Dim done As Boolean
         AnsiConsole.WriteLine("Yer dead!")
         OkPrompt()
