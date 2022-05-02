@@ -4,7 +4,11 @@
         Id = characterId
     End Sub
     Friend Shared Function Create(location As Location, characterType As CharacterType) As Character
-        Return New Character(CharacterData.Create(characterType, location.Id))
+        Dim character = New Character(CharacterData.Create(characterType, location.Id))
+        Part.Create(character, character.Location, PartType.Trunk)
+        Part.Create(character, character.Location, PartType.Leaves)
+        Part.Create(character, character.Location, PartType.Root)
+        Return character
     End Function
 
     Friend Sub SetAsPlayer()
