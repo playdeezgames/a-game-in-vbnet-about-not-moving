@@ -2,6 +2,7 @@ Imports System
 
 Module Program
     Sub Main(args As String())
+        AddHandler SfxPlayer.PlaySfx, AddressOf SfxHandler.HandleSfx
         Splash()
         MainMenu.Run()
     End Sub
@@ -16,6 +17,7 @@ Module Program
         AnsiConsole.Write(figlet)
         AnsiConsole.WriteLine("A Production of TheGrumpyGameDev")
         AnsiConsole.WriteLine("For A Jam about making Terminal Based Games in VB.NET")
+        SfxPlayer.Play(Sfx.Title)
         OkPrompt()
     End Sub
 End Module
