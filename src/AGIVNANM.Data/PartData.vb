@@ -18,6 +18,11 @@
                 FOREIGN KEY ([{LocationIdColumn}]) REFERENCES [{LocationData.TableName}]([{LocationData.LocationIdColumn}])
             );")
     End Sub
+
+    Public Function ReadPartType(partId As Long) As Long?
+        Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, PartIdColumn, partId, PartTypeColumn)
+    End Function
+
     Public Function Create(partType As Long, characterId As Long, locationId As Long) As Long
         Initialize()
         ExecuteNonQuery(
@@ -37,5 +42,9 @@
             MakeParameter($"@{CharacterIdColumn}", characterId),
             MakeParameter($"@{LocationIdColumn}", locationId))
         Return LastInsertRowId
+    End Function
+
+    Public Function ReadForCharacter(characterId As Long) As IEnumerable(Of Long)
+        Return ReadIdsWithColumnValue(AddressOf Initialize, TableName, PartIdColumn, CharacterIdColumn, characterId)
     End Function
 End Module

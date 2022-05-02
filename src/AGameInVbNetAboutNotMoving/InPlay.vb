@@ -17,6 +17,8 @@
     Private Function RunAlive(character As PlayerCharacter) As Boolean
         AnsiConsole.WriteLine("Yer alive!")
         AnsiConsole.WriteLine($"Day: {character.World.Day}")
+
+        AnsiConsole.WriteLine($"Parts: { String.Join(","c, character.StackedParts.Select(Function(x) $"{x.Key.Name}(x{x.Value.Count})"))}")
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now what?[/]"}
         prompt.AddChoice(NextDayText)
         prompt.AddChoice(GameMenuText)

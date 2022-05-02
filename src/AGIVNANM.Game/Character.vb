@@ -7,7 +7,7 @@
         Dim character = New Character(CharacterData.Create(characterType, location.Id))
         Part.Create(character, character.Location, PartType.Trunk)
         Part.Create(character, character.Location, PartType.Leaves)
-        Part.Create(character, character.Location, PartType.Root)
+        Part.Create(character, character.Location, PartType.Roots)
         Return character
     End Function
 
@@ -31,6 +31,23 @@
     Public ReadOnly Property World As World
         Get
             Return Location.World
+        End Get
+    End Property
+
+    Public ReadOnly Property Parts As IEnumerable(Of Part)
+        Get
+            Return PartData.ReadForCharacter(Id).Select(Function(id) New Part(id))
+        End Get
+    End Property
+
+    Public ReadOnly Property StackedParts As Dictionary(Of PartType, IEnumerable(Of Part))
+        Get
+            Dim groups = Parts.GroupBy(Function(x) x.PartType)
+            Dim result As New Dictionary(Of PartType, IEnumerable(Of Part))
+            For Each group In groups
+                result(group.Key) = group
+            Next
+            Return result
         End Get
     End Property
 End Class
