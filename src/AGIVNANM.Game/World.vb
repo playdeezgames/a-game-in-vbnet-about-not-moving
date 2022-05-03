@@ -11,9 +11,18 @@
         character.SetAsPlayer()
     End Sub
 
+    ReadOnly Property Locations As IEnumerable(Of Location)
+        Get
+            Return LocationData.ReadForWorld(Id).Select(Function(id) New Location(id))
+        End Get
+    End Property
+
     Friend Sub NextDay()
         WorldData.WriteDay(Id, WorldData.ReadDay(Id).Value + 1)
         WorldData.WriteLightLevel(Id, RNG.RollDice(LightLevelDice))
+        For Each location In Locations
+            location.NextDay()
+        Next
     End Sub
 
     Shared Function Create() As World

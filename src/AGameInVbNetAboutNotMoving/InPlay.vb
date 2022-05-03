@@ -1,6 +1,7 @@
 ﻿Module InPlay
     Const GameMenuText = "Game Menu"
     Const NextDayText = "Next Day"
+    Const PhotosynthesizeText = "Photosynthesize"
     Friend Sub Run()
         Dim done = False
         While Not done
@@ -22,6 +23,9 @@
 
         AnsiConsole.WriteLine($"Parts: { String.Join(","c, character.StackedParts.Select(Function(x) $"{x.Key.Name}(x{x.Value.Count})"))}")
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now what?[/]"}
+        If character.CanPhotosynthesize Then
+            prompt.AddChoice(PhotosynthesizeText)
+        End If
         prompt.AddChoice(NextDayText)
         prompt.AddChoice(GameMenuText)
         Select Case AnsiConsole.Prompt(prompt)
@@ -29,6 +33,8 @@
                 Return NextDay.Run()
             Case GameMenuText
                 Return GameMenu.Run()
+            Case PhotosynthesizeText
+                Return Photosythesize.Run()
             Case Else
                 Throw New NotImplementedException
         End Select

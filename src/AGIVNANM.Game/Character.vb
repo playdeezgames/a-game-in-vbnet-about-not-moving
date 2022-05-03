@@ -22,6 +22,17 @@
         End Get
     End Property
 
+    Friend Sub ChangeResource(resourceType As ResourceType, amount As Long)
+        Dim newAmount = If(CharacterResourceData.Read(Id, resourceType), 0) + amount
+        CharacterResourceData.Write(Id, resourceType, newAmount)
+    End Sub
+
+    Friend Sub NextDay()
+        For Each part In Parts
+            part.NextDay()
+        Next
+    End Sub
+
     Public ReadOnly Property Location As Location
         Get
             Return New Location(CharacterData.ReadLocation(Id).Value)
@@ -48,6 +59,11 @@
                 result(group.Key) = group
             Next
             Return result
+        End Get
+    End Property
+    Public ReadOnly Property CanPhotosynthesize As Boolean
+        Get
+            Return Parts.Where(Function(x) x.CanPhotosynthesize).Any
         End Get
     End Property
 End Class

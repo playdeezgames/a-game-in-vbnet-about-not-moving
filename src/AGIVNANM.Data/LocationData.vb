@@ -5,6 +5,7 @@ Public Module LocationData
     Friend Const YColumn = "Y"
     Friend Const LocationTypeColumn = "LocationType"
     Friend Const WorldIdColumn = WorldData.WorldIdColumn
+    Friend Const LightLevelColumn = "LightLevel"
     Friend Sub Initialize()
         WorldData.Initialize()
         ExecuteNonQuery(
@@ -15,10 +16,23 @@ Public Module LocationData
                 [{XColumn}] INT NOT NULL,
                 [{YColumn}] INT NOT NULL,
                 [{LocationTypeColumn}] INT NOT NULL,
+                [{LightLevelColumn}] INT NOT NULL DEFAULT(0),
                 UNIQUE([{XColumn}],[{YColumn}]),
                 FOREIGN KEY ([{WorldIdColumn}]) REFERENCES [{WorldData.TableName}]([{WorldData.WorldIdColumn}])
             );")
     End Sub
+
+    Public Sub WriteLightLevel(locationId As Long, lightLevel As Long)
+        WriteColumnValue(AddressOf Initialize, TableName, LocationIdColumn, locationId, LightLevelColumn, lightLevel)
+    End Sub
+
+    Public Function ReadLightLevel(locationId As Long) As Long?
+        Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, LightLevelColumn)
+    End Function
+
+    Public Function ReadForWorld(worldId As Long) As IEnumerable(Of Long)
+        Return ReadIdsWithColumnValue(AddressOf Initialize, TableName, LocationIdColumn, WorldIdColumn, worldId)
+    End Function
 
     Public Function ReadWorld(locationId As Long) As Long?
         Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, WorldIdColumn)

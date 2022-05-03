@@ -8,7 +8,7 @@
             $"CREATE TABLE IF NOT EXISTS [{TableName}]
             (
                 [{WorldIdColumn}] INTEGER PRIMARY KEY AUTOINCREMENT,
-                [{DayColumn}] INT NOT NULL DEFAULT(1),
+                [{DayColumn}] INT NOT NULL DEFAULT(0),
                 [{LightLevelColumn}] INT NOT NULL
             );")
     End Sub
