@@ -8,6 +8,9 @@
         Part.Create(character, character.Location, PartType.Trunk)
         Part.Create(character, character.Location, PartType.Leaves)
         Part.Create(character, character.Location, PartType.Roots)
+        For Each resourceType In AllResourceTypes
+            character.ChangeResource(resourceType, resourceType.InitialAmount)
+        Next
         Return character
     End Function
 

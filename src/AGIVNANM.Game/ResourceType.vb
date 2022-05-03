@@ -20,4 +20,14 @@ Public Module ResourceTypeExtensions
                 Throw New NotImplementedException
         End Select
     End Function
+    <Extension>
+    Function InitialAmount(resourceType As ResourceType) As Long
+        Select Case resourceType
+            Case ResourceType.Sugar
+                Return 1
+            Case Else
+                Return 0
+        End Select
+    End Function
+    Public ReadOnly AllResourceTypes As New List(Of ResourceType) From {ResourceType.Sap, ResourceType.Sugar, ResourceType.Water}
 End Module
