@@ -26,4 +26,16 @@
     Public Sub Write(characterId As Long, resourceType As Long, amount As Long)
         ReplaceRecord(AddressOf Initialize, TableName, CharacterIdColumn, characterId, ResourceTypeColumn, resourceType, AmountColumn, amount)
     End Sub
+
+    Public Function ReadForCharacter(characterId As Long) As Dictionary(Of Long, Long)
+        Initialize()
+        Dim result As New Dictionary(Of Long, Long)
+        For Each entry In ExecuteReader(
+            Function(reader) (CLng(reader(ResourceTypeColumn)), CLng(reader(AmountColumn))),
+            $"SELECT [{ResourceTypeColumn}], [{AmountColumn}] FROM [{TableName}] WHERE [{CharacterIdColumn}]=@{CharacterIdColumn};",
+            MakeParameter($"@{CharacterIdColumn}", characterId))
+            result(entry.Item1) = entry.Item2
+        Next
+        Return result
+    End Function
 End Module

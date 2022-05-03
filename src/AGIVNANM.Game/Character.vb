@@ -66,4 +66,14 @@
             Return Parts.Where(Function(x) x.CanPhotosynthesize).Any
         End Get
     End Property
+    ReadOnly Property Resources As Dictionary(Of ResourceType, Long)
+        Get
+            Dim result As New Dictionary(Of ResourceType, Long)
+            For Each entry In CharacterResourceData.ReadForCharacter(Id)
+                result(CType(entry.key, ResourceType)) = entry.Value
+            Next
+            Return result
+        End Get
+    End Property
+
 End Class

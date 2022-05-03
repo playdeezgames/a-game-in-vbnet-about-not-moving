@@ -9,6 +9,8 @@
             Return False
         End If
         Dim result = part.Photosynthesize()
+        AnsiConsole.WriteLine($"You photosynthesize {result} sugars.")
+        OkPrompt()
         Return False
     End Function
 End Module

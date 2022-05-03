@@ -25,12 +25,22 @@
         sugars = If(sugars > Location.LightLevel, Location.LightLevel, sugars)
         Location.LightLevel -= sugars
         Character.ChangeResource(ResourceType.Sugar, sugars)
+        Actions -= 1
         Return sugars
     End Function
 
+    Property Actions As Long
+        Get
+            Return PartData.ReadActions(Id).Value
+        End Get
+        Set(value As Long)
+            PartData.WriteActions(Id, value)
+        End Set
+    End Property
+
     ReadOnly Property HasAction As Boolean
         Get
-            Return PartData.ReadActions(Id).Value > 0
+            Return Actions > 0
         End Get
     End Property
 

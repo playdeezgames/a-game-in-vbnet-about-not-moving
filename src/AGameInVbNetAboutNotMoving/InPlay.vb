@@ -16,18 +16,8 @@
     End Sub
 
     Private Function RunAlive(character As PlayerCharacter) As Boolean
-        AnsiConsole.WriteLine("Yer alive!")
-        Dim world = character.World
-        AnsiConsole.WriteLine($"Day: {world.Day}")
-        AnsiConsole.WriteLine($"Light Level: {world.LightLevel}")
-
-        AnsiConsole.WriteLine($"Parts: { String.Join(","c, character.StackedParts.Select(Function(x) $"{x.Key.Name}(x{x.Value.Count})"))}")
-        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now what?[/]"}
-        If character.CanPhotosynthesize Then
-            prompt.AddChoice(PhotosynthesizeText)
-        End If
-        prompt.AddChoice(NextDayText)
-        prompt.AddChoice(GameMenuText)
+        ReportStatus(character)
+        Dim prompt As SelectionPrompt(Of String) = GeneratePrompt(character)
         Select Case AnsiConsole.Prompt(prompt)
             Case NextDayText
                 Return NextDay.Run()
@@ -39,6 +29,28 @@
                 Throw New NotImplementedException
         End Select
         Return False
+    End Function
+
+    Private Sub ReportStatus(character As PlayerCharacter)
+        AnsiConsole.WriteLine("Yer alive!")
+        Dim world = character.World
+        AnsiConsole.WriteLine($"Day: {world.Day}")
+        AnsiConsole.WriteLine($"Light Level: {world.LightLevel}")
+        AnsiConsole.WriteLine($"Parts: { String.Join(","c, character.StackedParts.Select(Function(x) $"{x.Key.Name}(x{x.Value.Count})"))}")
+        Dim resources As Dictionary(Of ResourceType, Long) = character.Resources
+        If resources.Any Then
+            AnsiConsole.WriteLine($"Resources: { String.Join(","c, resources.Select(Function(x) $"{x.Key.Name}(x{x.Value})"))}")
+        End If
+    End Sub
+
+    Private Function GeneratePrompt(character As PlayerCharacter) As SelectionPrompt(Of String)
+        Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now what?[/]"}
+        If character.CanPhotosynthesize Then
+            prompt.AddChoice(PhotosynthesizeText)
+        End If
+        prompt.AddChoice(NextDayText)
+        prompt.AddChoice(GameMenuText)
+        Return prompt
     End Function
 
     Private Function RunDead(character As PlayerCharacter) As Boolean
