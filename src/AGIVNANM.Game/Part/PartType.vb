@@ -32,9 +32,27 @@ Public Module PartTypeExtensions
     Function PhotosynthesisDice(partType As PartType) As String
         Select Case partType
             Case PartType.Leaves
-                Return "2d2/2"
+                Return "3d2"
             Case Else
                 Return "0d1"
+        End Select
+    End Function
+    <Extension>
+    Function Upkeep(partType As PartType) As Dictionary(Of ResourceType, Long)
+        Select Case partType
+            Case PartType.Trunk
+                Return New Dictionary(Of ResourceType, Long) From {{ResourceType.Sugar, 1}}
+            Case Else
+                Return New Dictionary(Of ResourceType, Long)
+        End Select
+    End Function
+    <Extension>
+    Function MaximumVitality(partType As PartType) As Long
+        Select Case partType
+            Case PartType.Trunk
+                Return 10
+            Case Else
+                Return 5
         End Select
     End Function
 End Module

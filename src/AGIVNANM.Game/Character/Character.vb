@@ -64,11 +64,17 @@
             Return result
         End Get
     End Property
+
+    Friend Function GetResource(resourceType As ResourceType) As Long
+        Return If(CharacterResourceData.Read(Id, resourceType), 0)
+    End Function
+
     Public ReadOnly Property CanPhotosynthesize As Boolean
         Get
             Return Parts.Where(Function(x) x.CanPhotosynthesize).Any
         End Get
     End Property
+
     ReadOnly Property Resources As Dictionary(Of ResourceType, Long)
         Get
             Dim result As New Dictionary(Of ResourceType, Long)
@@ -76,6 +82,18 @@
                 result(CType(entry.key, ResourceType)) = entry.Value
             Next
             Return result
+        End Get
+    End Property
+
+    ReadOnly Property Vitality As Long
+        Get
+            Return Parts.Sum(Function(x) x.Vitality)
+        End Get
+    End Property
+
+    ReadOnly Property MaximumVitality As Long
+        Get
+            Return Parts.Sum(Function(x) x.MaximumVitality)
         End Get
     End Property
 

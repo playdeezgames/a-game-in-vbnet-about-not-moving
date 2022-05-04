@@ -5,6 +5,7 @@
     Friend Const LocationIdColumn = LocationData.LocationIdColumn
     Friend Const PartTypeColumn = "PartType"
     Friend Const ActionsColumn = "Actions"
+    Friend Const DamageColumn = "Damage"
     Friend Sub Initialize()
         CharacterData.Initialize()
         LocationData.Initialize()
@@ -16,6 +17,7 @@
                 [{CharacterIdColumn}] INT NOT NULL,
                 [{LocationIdColumn}] INT NOT NULL,
                 [{ActionsColumn}] INT NOT NULL DEFAULT(0),
+                [{DamageColumn}] INT NOT NULL DEFAULT(0),
                 FOREIGN KEY ([{CharacterIdColumn}]) REFERENCES [{CharacterData.TableName}]([{CharacterData.CharacterIdColumn}]),
                 FOREIGN KEY ([{LocationIdColumn}]) REFERENCES [{LocationData.TableName}]([{LocationData.LocationIdColumn}])
             );")
@@ -41,6 +43,10 @@
         Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, PartIdColumn, partId, PartTypeColumn)
     End Function
 
+    Public Function ReadDamage(partId As Long) As Long?
+        Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, PartIdColumn, partId, DamageColumn)
+    End Function
+
     Public Function Create(partType As Long, characterId As Long, locationId As Long) As Long
         Initialize()
         ExecuteNonQuery(
@@ -61,6 +67,10 @@
             MakeParameter($"@{LocationIdColumn}", locationId))
         Return LastInsertRowId
     End Function
+
+    Public Sub WriteDamage(partId As Long, damage As Long)
+        WriteColumnValue(AddressOf Initialize, TableName, PartIdColumn, partId, DamageColumn, damage)
+    End Sub
 
     Public Function ReadForCharacter(characterId As Long) As IEnumerable(Of Long)
         Return ReadIdsWithColumnValue(AddressOf Initialize, TableName, PartIdColumn, CharacterIdColumn, characterId)

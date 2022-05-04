@@ -33,6 +33,7 @@
 
     Private Sub ReportStatus(character As PlayerCharacter)
         AnsiConsole.WriteLine("Yer alive!")
+        AnsiConsole.WriteLine($"Vitality: {character.Vitality}/{character.MaximumVitality}")
         Dim world = character.World
         AnsiConsole.WriteLine($"Day: {world.Day}")
         AnsiConsole.WriteLine($"Light Level: {world.LightLevel}")

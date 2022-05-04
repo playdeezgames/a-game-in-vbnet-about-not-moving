@@ -57,6 +57,35 @@
     End Property
 
     Friend Sub NextDay()
+        For Each entry In PartType.Upkeep
+            Dim availableResource As Long = Character.GetResource(entry.Key)
+            Dim damage = If(entry.Value > availableResource, entry.Value - availableResource, 0)
+            Character.ChangeResource(entry.Key, -entry.Value)
+            AddDamage(damage)
+        Next
         PartData.WriteActions(Id, PartType.MaximumActions)
     End Sub
+
+    ReadOnly Property Damage As Long
+        Get
+            Return PartData.ReadDamage(Id).Value
+        End Get
+    End Property
+
+    Private Sub AddDamage(delta As Long)
+        Dim newDamage = Math.Max(Math.Min(Damage + delta, Vitality), 0)
+        PartData.WriteDamage(Id, newDamage)
+    End Sub
+
+    ReadOnly Property Vitality As Long
+        Get
+            Return MaximumVitality - Damage
+        End Get
+    End Property
+
+    ReadOnly Property MaximumVitality As Long
+        Get
+            Return PartType.MaximumVitality
+        End Get
+    End Property
 End Class
