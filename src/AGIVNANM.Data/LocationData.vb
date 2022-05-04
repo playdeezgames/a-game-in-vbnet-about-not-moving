@@ -6,6 +6,7 @@ Public Module LocationData
     Friend Const LocationTypeColumn = "LocationType"
     Friend Const WorldIdColumn = WorldData.WorldIdColumn
     Friend Const LightLevelColumn = "LightLevel"
+    Friend Const WaterLevelColumn = "WaterLevel"
     Friend Sub Initialize()
         WorldData.Initialize()
         ExecuteNonQuery(
@@ -17,6 +18,7 @@ Public Module LocationData
                 [{YColumn}] INT NOT NULL,
                 [{LocationTypeColumn}] INT NOT NULL,
                 [{LightLevelColumn}] INT NOT NULL DEFAULT(0),
+                [{WaterLevelColumn}] INT NOT NULL DEFAULT(0),
                 UNIQUE([{XColumn}],[{YColumn}]),
                 FOREIGN KEY ([{WorldIdColumn}]) REFERENCES [{WorldData.TableName}]([{WorldData.WorldIdColumn}])
             );")
@@ -25,6 +27,18 @@ Public Module LocationData
     Public Sub WriteLightLevel(locationId As Long, lightLevel As Long)
         WriteColumnValue(AddressOf Initialize, TableName, LocationIdColumn, locationId, LightLevelColumn, lightLevel)
     End Sub
+
+    Public Sub WriteWaterLevel(locationId As Long, waterLevel As Long)
+        WriteColumnValue(AddressOf Initialize, TableName, LocationIdColumn, locationId, WaterLevelColumn, waterLevel)
+    End Sub
+
+    Public Function ReadWaterLevel(locationId As Long) As Long?
+        Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, WaterLevelColumn)
+    End Function
+
+    Public Function ReadLocationType(locationId As Long) As Long?
+        Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, LocationTypeColumn)
+    End Function
 
     Public Function ReadLightLevel(locationId As Long) As Long?
         Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, LightLevelColumn)

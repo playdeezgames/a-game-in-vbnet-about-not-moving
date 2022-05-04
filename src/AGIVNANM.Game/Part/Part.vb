@@ -29,6 +29,15 @@
         Return sugars
     End Function
 
+    Public Function AbsorbWater() As Long
+        Dim water As Long = RNG.RollDice(PartType.WaterAbsorptionDice)
+        water = If(water > Location.WaterLevel, Location.WaterLevel, water)
+        Location.WaterLevel -= water
+        Character.ChangeResource(ResourceType.Water, water)
+        Actions -= 1
+        Return water
+    End Function
+
     Property Actions As Long
         Get
             Return PartData.ReadActions(Id).Value
@@ -73,7 +82,7 @@
     End Property
 
     Private Sub AddDamage(delta As Long)
-        Dim newDamage = Math.Max(Math.Min(Damage + delta, Vitality), 0)
+        Dim newDamage = Math.Max(Math.Min(Damage + delta, MaximumVitality), 0)
         PartData.WriteDamage(Id, newDamage)
     End Sub
 
@@ -86,6 +95,12 @@
     ReadOnly Property MaximumVitality As Long
         Get
             Return PartType.MaximumVitality
+        End Get
+    End Property
+
+    ReadOnly Property CanAbsorbWater As Boolean
+        Get
+            Return PartType.CanAbsorbWater AndAlso HasAction AndAlso Location.HasWaterLeft
         End Get
     End Property
 End Class

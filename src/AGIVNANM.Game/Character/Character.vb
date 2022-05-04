@@ -27,7 +27,7 @@
 
     Friend Sub ChangeResource(resourceType As ResourceType, amount As Long)
         Dim newAmount = If(CharacterResourceData.Read(Id, resourceType), 0) + amount
-        CharacterResourceData.Write(Id, resourceType, newAmount)
+        CharacterResourceData.Write(Id, resourceType, Math.Max(newAmount, 0))
     End Sub
 
     Friend Sub NextDay()
@@ -75,11 +75,17 @@
         End Get
     End Property
 
+    Public ReadOnly Property CanAbsorbWater As Boolean
+        Get
+            Return Parts.Where(Function(x) x.CanAbsorbWater).Any
+        End Get
+    End Property
+
     ReadOnly Property Resources As Dictionary(Of ResourceType, Long)
         Get
             Dim result As New Dictionary(Of ResourceType, Long)
             For Each entry In CharacterResourceData.ReadForCharacter(Id)
-                result(CType(entry.key, ResourceType)) = entry.Value
+                result(CType(entry.Key, ResourceType)) = entry.Value
             Next
             Return result
         End Get

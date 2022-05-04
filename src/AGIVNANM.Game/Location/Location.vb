@@ -36,8 +36,30 @@
         End Get
     End Property
 
+    Property WaterLevel As Long
+        Get
+            Return LocationData.ReadWaterLevel(Id).Value
+        End Get
+        Set(value As Long)
+            LocationData.WriteWaterLevel(Id, Math.Max(value, 0))
+        End Set
+    End Property
+
+    ReadOnly Property HasWaterLeft As Boolean
+        Get
+            Return WaterLevel > 0
+        End Get
+    End Property
+
+    ReadOnly Property LocationType As LocationType
+        Get
+            Return CType(LocationData.ReadLocationType(Id).Value, LocationType)
+        End Get
+    End Property
+
     Friend Sub NextDay()
         LightLevel = World.LightLevel
+        WaterLevel = LocationType.WaterLevel
         For Each character In Characters
             character.NextDay()
         Next

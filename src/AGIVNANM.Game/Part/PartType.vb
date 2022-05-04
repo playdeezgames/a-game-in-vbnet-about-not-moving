@@ -25,6 +25,10 @@ Public Module PartTypeExtensions
         Return partType = PartType.Leaves
     End Function
     <Extension>
+    Function CanAbsorbWater(partType As PartType) As Boolean
+        Return partType = PartType.Roots
+    End Function
+    <Extension>
     Function MaximumActions(partType As PartType) As Long
         Return 1
     End Function
@@ -32,6 +36,15 @@ Public Module PartTypeExtensions
     Function PhotosynthesisDice(partType As PartType) As String
         Select Case partType
             Case PartType.Leaves
+                Return "3d2"
+            Case Else
+                Return "0d1"
+        End Select
+    End Function
+    <Extension>
+    Function WaterAbsorptionDice(partType As PartType) As String
+        Select Case partType
+            Case PartType.Roots
                 Return "3d2"
             Case Else
                 Return "0d1"

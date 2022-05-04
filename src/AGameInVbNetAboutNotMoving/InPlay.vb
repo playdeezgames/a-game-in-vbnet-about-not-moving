@@ -2,6 +2,7 @@
     Const GameMenuText = "Game Menu"
     Const NextDayText = "Next Day"
     Const PhotosynthesizeText = "Photosynthesize"
+    Const AbsorbWaterText = "Absorb Water"
     Friend Sub Run()
         Dim done = False
         While Not done
@@ -25,6 +26,8 @@
                 Return GameMenu.Run()
             Case PhotosynthesizeText
                 Return Photosythesize.Run()
+            Case AbsorbWaterText
+                Return AbsorbWater.Run()
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -46,10 +49,13 @@
 
     Private Function GeneratePrompt(character As PlayerCharacter) As SelectionPrompt(Of String)
         Dim prompt As New SelectionPrompt(Of String) With {.Title = "[olive]Now what?[/]"}
+        prompt.AddChoice(NextDayText)
         If character.CanPhotosynthesize Then
             prompt.AddChoice(PhotosynthesizeText)
         End If
-        prompt.AddChoice(NextDayText)
+        If character.CanAbsorbWater Then
+            prompt.AddChoice(AbsorbWaterText)
+        End If
         prompt.AddChoice(GameMenuText)
         Return prompt
     End Function
