@@ -25,6 +25,8 @@ Public Module ResourceTypeExtensions
         Select Case resourceType
             Case ResourceType.Sugar
                 Return 1
+            Case ResourceType.Water
+                Return 1
             Case Else
                 Return 0
         End Select

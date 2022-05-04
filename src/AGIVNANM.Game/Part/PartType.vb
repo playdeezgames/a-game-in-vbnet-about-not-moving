@@ -42,6 +42,10 @@ Public Module PartTypeExtensions
         Select Case partType
             Case PartType.Trunk
                 Return New Dictionary(Of ResourceType, Long) From {{ResourceType.Sugar, 1}}
+            Case PartType.Leaves
+                Return New Dictionary(Of ResourceType, Long) From {{ResourceType.Water, 1}}
+            Case PartType.Roots
+                Return New Dictionary(Of ResourceType, Long)
             Case Else
                 Return New Dictionary(Of ResourceType, Long)
         End Select
