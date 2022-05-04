@@ -47,9 +47,25 @@
         End Set
     End Property
 
+    Friend Sub Destroy()
+        PartData.Clear(Id)
+    End Sub
+
+    ReadOnly Property Name As String
+        Get
+            Return PartType.Name
+        End Get
+    End Property
+
+    ReadOnly Property IsDead As Boolean
+        Get
+            Return Vitality < 1
+        End Get
+    End Property
+
     ReadOnly Property HasAction As Boolean
         Get
-            Return Actions > 0
+            Return Not IsDead AndAlso Actions > 0
         End Get
     End Property
 

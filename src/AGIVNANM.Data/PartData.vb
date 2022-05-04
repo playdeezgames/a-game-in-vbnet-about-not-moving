@@ -35,6 +35,10 @@
         WriteColumnValue(AddressOf Initialize, TableName, PartIdColumn, partId, ActionsColumn, actions)
     End Sub
 
+    Public Sub Clear(partId As Long)
+        ClearForColumnValue(AddressOf Initialize, TableName, PartIdColumn, partId)
+    End Sub
+
     Public Function ReadActions(partId As Long) As Long?
         Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, PartIdColumn, partId, ActionsColumn)
     End Function

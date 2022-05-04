@@ -20,8 +20,7 @@
 
     Public ReadOnly Property IsDead As Boolean
         Get
-            'TODO: how does a tree die?
-            Return False
+            Return Not Parts.Any(Function(x) x.PartType = PartType.Trunk)
         End Get
     End Property
 
@@ -30,7 +29,22 @@
         CharacterResourceData.Write(Id, resourceType, Math.Max(newAmount, 0))
     End Sub
 
+    ReadOnly Property DeadParts As IEnumerable(Of Part)
+        Get
+            Return Parts.Where(Function(x) x.IsDead)
+        End Get
+    End Property
+
+    ReadOnly Property LivingParts As IEnumerable(Of Part)
+        Get
+            Return Parts.Where(Function(x) Not x.IsDead)
+        End Get
+    End Property
+
     Friend Sub NextDay()
+        For Each part In DeadParts
+            part.Destroy()
+        Next
         For Each part In Parts
             part.NextDay()
         Next
@@ -56,7 +70,7 @@
 
     Public ReadOnly Property StackedParts As Dictionary(Of PartType, IEnumerable(Of Part))
         Get
-            Dim groups = Parts.GroupBy(Function(x) x.PartType)
+            Dim groups = LivingParts.GroupBy(Function(x) x.PartType)
             Dim result As New Dictionary(Of PartType, IEnumerable(Of Part))
             For Each group In groups
                 result(group.Key) = group
