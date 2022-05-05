@@ -59,7 +59,7 @@
 
     Friend Sub NextDay()
         LightLevel = World.LightLevel
-        WaterLevel = LocationType.WaterLevel
+        WaterLevel = Math.Min(WaterLevel + RNG.RollDice(LocationType.WaterLevelDice), LocationType.WaterLevelSaturation)
         For Each character In Characters
             character.NextDay()
         Next

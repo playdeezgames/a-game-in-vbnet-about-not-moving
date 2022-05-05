@@ -6,7 +6,16 @@ Public Enum LocationType
 End Enum
 Public Module LocationTypeExtensions
     <Extension>
-    Function WaterLevel(locationType As LocationType) As Long
+    Function WaterLevelDice(locationType As LocationType) As String
+        Select Case locationType
+            Case LocationType.Dirt
+                Return "3d2"
+            Case Else
+                Return "0d1"
+        End Select
+    End Function
+    <Extension>
+    Function WaterLevelSaturation(locationType As LocationType) As Long
         Select Case locationType
             Case LocationType.Dirt
                 Return 10
