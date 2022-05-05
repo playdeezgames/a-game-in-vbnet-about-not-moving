@@ -62,10 +62,11 @@
         Dim additionalWaterLevel =
             If(conditionType = ConditionType.ExtremeDrought, 0,
             If(conditionType = ConditionType.Drought, RNG.RollDice(LocationType.WaterLevelDice) \ 2,
-            RNG.RollDice(LocationType.WaterLevelDice)))
+            If(conditionType = ConditionType.HeavyRains, RNG.RollDice(LocationType.WaterLevelDice) * 2,
+            RNG.RollDice(LocationType.WaterLevelDice))))
         WaterLevel = Math.Min(WaterLevel + additionalWaterLevel, LocationType.WaterLevelSaturation)
         For Each character In Characters
-            character.NextDay()
+            character.NextDay(conditionType)
         Next
     End Sub
 End Class

@@ -41,12 +41,12 @@
         End Get
     End Property
 
-    Friend Sub NextDay()
+    Friend Sub NextDay(conditionType As ConditionType)
         For Each part In DeadParts
             part.Destroy()
         Next
         For Each part In Parts
-            part.NextDay()
+            part.NextDay(conditionType)
         Next
     End Sub
 

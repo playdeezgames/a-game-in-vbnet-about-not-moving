@@ -93,13 +93,16 @@
         End Get
     End Property
 
-    Friend Sub NextDay()
+    Friend Sub NextDay(conditionType As ConditionType)
         For Each entry In PartType.Upkeep
             Dim availableResource As Long = Character.GetResource(entry.Key)
             Dim damage = If(entry.Value > availableResource, entry.Value - availableResource, 0)
             Character.ChangeResource(entry.Key, -entry.Value)
             AddDamage(damage)
         Next
+        If conditionType = ConditionType.HighWinds Then
+            AddDamage(RNG.RollDice(PartType.WindDamageRoll))
+        End If
         PartData.WriteActions(Id, PartType.MaximumActions)
     End Sub
 

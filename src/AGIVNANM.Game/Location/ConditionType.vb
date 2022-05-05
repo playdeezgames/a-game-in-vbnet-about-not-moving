@@ -12,11 +12,13 @@ End Enum
 Public Module ConditionTypeExensions
     Friend ReadOnly ConditionTypeGenerator As New Dictionary(Of ConditionType, Integer) From
         {
-            {ConditionType.None, 100},
-            {ConditionType.CloudCover, 20},
-            {ConditionType.CompleteCloudCover, 5},
-            {ConditionType.Drought, 5},
-            {ConditionType.ExtremeDrought, 1}
+            {ConditionType.None, 50},
+            {ConditionType.CloudCover, 25},
+            {ConditionType.CompleteCloudCover, 10},
+            {ConditionType.Drought, 15},
+            {ConditionType.ExtremeDrought, 5},
+            {ConditionType.HeavyRains, 20},
+            {ConditionType.HighWinds, 30}
         }
     <Extension>
     Public Function Name(conditionType As ConditionType) As String
