@@ -14,6 +14,18 @@
         End Get
     End Property
 
+    Public Function ProduceSap() As Long
+        Dim sap As Long = RNG.RollDice(PartType.SapProductionDice)
+        Dim water As Long = Character.GetResource(ResourceType.Water)
+        Dim sugar As Long = Character.GetResource(ResourceType.Sugar)
+        sap = Math.Min(Math.Min(sap, water), sugar)
+        Character.ChangeResource(ResourceType.Sap, sap)
+        Character.ChangeResource(ResourceType.Sugar, -sap)
+        Character.ChangeResource(ResourceType.Water, -sap)
+        Actions -= 1
+        Return sap
+    End Function
+
     ReadOnly Property Character As Character
         Get
             Return New Character(PartData.ReadCharacter(Id).Value)
@@ -117,6 +129,12 @@
     ReadOnly Property CanAbsorbWater As Boolean
         Get
             Return PartType.CanAbsorbWater AndAlso HasAction AndAlso Location.HasWaterLeft
+        End Get
+    End Property
+
+    ReadOnly Property CanProduceSap() As Boolean
+        Get
+            Return PartType.CanProduceSap AndAlso HasAction AndAlso Character.HasSugar AndAlso Character.HasWater
         End Get
     End Property
 End Class

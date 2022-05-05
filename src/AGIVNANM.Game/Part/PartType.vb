@@ -72,4 +72,17 @@ Public Module PartTypeExtensions
                 Return 5
         End Select
     End Function
+    <Extension>
+    Function CanProduceSap(partType As PartType) As Boolean
+        Return partType = PartType.Trunk
+    End Function
+    <Extension>
+    Function SapProductionDice(partType As PartType) As String
+        Select Case partType
+            Case PartType.Trunk
+                Return "3d2"
+            Case Else
+                Return "0d1"
+        End Select
+    End Function
 End Module

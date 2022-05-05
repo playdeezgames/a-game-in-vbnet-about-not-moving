@@ -117,4 +117,21 @@
         End Get
     End Property
 
+    ReadOnly Property CanProduceSap As Boolean
+        Get
+            Return Parts.Where(Function(x) x.CanProduceSap).Any
+        End Get
+    End Property
+
+    ReadOnly Property HasWater As Boolean
+        Get
+            Return GetResource(ResourceType.Water) > 0
+        End Get
+    End Property
+
+    ReadOnly Property HasSugar As Boolean
+        Get
+            Return GetResource(ResourceType.Sugar) > 0
+        End Get
+    End Property
 End Class

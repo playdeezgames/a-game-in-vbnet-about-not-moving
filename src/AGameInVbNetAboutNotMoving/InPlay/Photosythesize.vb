@@ -1,7 +1,6 @@
 ﻿Module Photosythesize
-    Friend Function Run() As Boolean
+    Friend Function Run(character As PlayerCharacter) As Boolean
         AnsiConsole.Clear()
-        Dim character As New PlayerCharacter
         Dim part = character.Parts.FirstOrDefault(Function(x) x.CanPhotosynthesize)
         If part Is Nothing Then
             AnsiConsole.WriteLine("You cannot photosynthesize now!")

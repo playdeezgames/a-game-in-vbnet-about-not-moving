@@ -3,6 +3,7 @@
     Const NextDayText = "Next Day"
     Const PhotosynthesizeText = "Photosynthesize"
     Const AbsorbWaterText = "Absorb Water"
+    Const ProduceSapText = "Produce Sap"
     Friend Sub Run()
         Dim done = False
         While Not done
@@ -25,9 +26,11 @@
             Case GameMenuText
                 Return GameMenu.Run()
             Case PhotosynthesizeText
-                Return Photosythesize.Run()
+                Return Photosythesize.Run(character)
             Case AbsorbWaterText
-                Return AbsorbWater.Run()
+                Return AbsorbWater.Run(character)
+            Case ProduceSapText
+                Return ProduceSap.Run(character)
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -59,6 +62,9 @@
         If character.CanAbsorbWater Then
             prompt.AddChoice(AbsorbWaterText)
         End If
+        If character.CanProduceSap Then
+            prompt.AddChoice(ProduceSapText)
+        End If
         prompt.AddChoice(GameMenuText)
         Return prompt
     End Function
@@ -66,6 +72,7 @@
     Private Function RunDead(character As PlayerCharacter) As Boolean
         Dim done As Boolean
         AnsiConsole.WriteLine("Yer dead!")
+        AnsiConsole.WriteLine($"Day: {character.World.Day}")
         OkPrompt()
         done = True
         Return done
