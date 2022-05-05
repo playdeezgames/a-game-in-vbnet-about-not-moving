@@ -27,7 +27,7 @@
             RNG.RollDice(LightLevelDice)))
         WorldData.WriteLightLevel(Id, newLightLevel)
         For Each location In Locations
-            location.NextDay()
+            location.NextDay(conditionType)
         Next
     End Sub
 

@@ -14,23 +14,25 @@ Public Module ConditionTypeExensions
         {
             {ConditionType.None, 100},
             {ConditionType.CloudCover, 20},
-            {ConditionType.CompleteCloudCover, 5}
+            {ConditionType.CompleteCloudCover, 5},
+            {ConditionType.Drought, 5},
+            {ConditionType.ExtremeDrought, 1}
         }
     <Extension>
     Public Function Name(conditionType As ConditionType) As String
         Select Case conditionType
             Case ConditionType.HeavyRains
-                Return "heavy rains"
+                Return "[blue]heavy rains[/]"
             Case ConditionType.CloudCover
-                Return "cloud cover"
+                Return "[grey]cloud cover[/]"
             Case ConditionType.CompleteCloudCover
-                Return "complete cloud cover"
+                Return "[grey]complete cloud cover[/]"
             Case ConditionType.Drought
-                Return "drought"
+                Return "[maroon]drought[/]"
             Case ConditionType.ExtremeDrought
-                Return "extreme drought"
+                Return "[red]extreme drought[/]"
             Case ConditionType.HighWinds
-                Return "high winds"
+                Return "[yellow]high winds[/]"
             Case ConditionType.None
                 Return "none"
             Case Else
