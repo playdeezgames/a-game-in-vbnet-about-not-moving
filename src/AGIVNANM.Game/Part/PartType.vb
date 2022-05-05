@@ -94,4 +94,8 @@ Public Module PartTypeExtensions
                 Return "0d1"
         End Select
     End Function
+    <Extension>
+    Function RepairDice(partType As PartType) As String
+        Return "2d2"
+    End Function
 End Module

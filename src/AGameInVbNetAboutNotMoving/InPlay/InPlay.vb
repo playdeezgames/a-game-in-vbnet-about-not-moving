@@ -4,6 +4,7 @@
     Const PhotosynthesizeText = "Photosynthesize"
     Const AbsorbWaterText = "Absorb Water"
     Const ProduceSapText = "Produce Sap"
+    Const RepairDamageText = "Repair Damage"
     Friend Sub Run()
         Dim done = False
         While Not done
@@ -31,6 +32,8 @@
                 Return AbsorbWater.Run(character)
             Case ProduceSapText
                 Return ProduceSap.Run(character)
+            Case RepairDamageText
+                Return RepairDamage.Run(character)
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -65,6 +68,9 @@
         End If
         If character.CanProduceSap Then
             prompt.AddChoice(ProduceSapText)
+        End If
+        If character.CanRepairDamage Then
+            prompt.AddChoice(RepairDamageText)
         End If
         prompt.AddChoice(GameMenuText)
         Return prompt

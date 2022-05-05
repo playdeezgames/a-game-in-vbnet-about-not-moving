@@ -134,4 +134,16 @@
             Return GetResource(ResourceType.Sugar) > 0
         End Get
     End Property
+
+    ReadOnly Property HasSap As Boolean
+        Get
+            Return GetResource(ResourceType.Sap) > 0
+        End Get
+    End Property
+
+    ReadOnly Property CanRepairDamage As Boolean
+        Get
+            Return Parts.Any(Function(x) x.CanRepairDamage)
+        End Get
+    End Property
 End Class

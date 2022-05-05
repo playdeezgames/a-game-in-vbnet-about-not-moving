@@ -8,6 +8,14 @@
         Return New Part(PartData.Create(partType, character.Id, location.Id))
     End Function
 
+    Public Function RepairDamage() As Long
+        Dim damageRepaired As Long = RNG.RollDice(PartType.RepairDice)
+        damageRepaired = Math.Max(Damage, Math.Min(damageRepaired, Character.GetResource(ResourceType.Sap)))
+        Character.ChangeResource(ResourceType.Sap, -damageRepaired)
+        AddDamage(-damageRepaired)
+        Return damageRepaired
+    End Function
+
     ReadOnly Property PartType As PartType
         Get
             Return CType(PartData.ReadPartType(Id).Value, PartType)
@@ -135,9 +143,15 @@
         End Get
     End Property
 
-    ReadOnly Property CanProduceSap() As Boolean
+    ReadOnly Property CanProduceSap As Boolean
         Get
             Return PartType.CanProduceSap AndAlso HasAction AndAlso Character.HasSugar AndAlso Character.HasWater
+        End Get
+    End Property
+
+    ReadOnly Property CanRepairDamage As Boolean
+        Get
+            Return Damage > 0 AndAlso HasAction AndAlso Character.HasSap
         End Get
     End Property
 End Class
