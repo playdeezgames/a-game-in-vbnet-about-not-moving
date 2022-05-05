@@ -45,6 +45,7 @@
         AnsiConsole.WriteLine($"Vitality: {character.Vitality}/{character.MaximumVitality}")
         Dim world = character.World
         AnsiConsole.WriteLine($"Day: {world.Day}")
+        AnsiConsole.WriteLine($"Condition: {world.Condition.Name}")
         AnsiConsole.WriteLine($"Light Level: {world.LightLevel}")
         AnsiConsole.WriteLine($"Parts: { String.Join(","c, character.StackedParts.Select(Function(x) $"{x.Key.Name}(x{x.Value.Count})"))}")
         Dim resources As Dictionary(Of ResourceType, Long) = character.Resources

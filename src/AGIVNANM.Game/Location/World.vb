@@ -19,7 +19,13 @@
 
     Friend Sub NextDay()
         WorldData.WriteDay(Id, WorldData.ReadDay(Id).Value + 1)
-        WorldData.WriteLightLevel(Id, RNG.RollDice(LightLevelDice))
+        Dim conditionType = RNG.FromGenerator(ConditionTypeGenerator)
+        WorldData.WriteConditionType(Id, conditionType)
+        Dim newLightLevel =
+            If(conditionType = ConditionType.CompleteCloudCover, 0,
+            If(conditionType = ConditionType.CloudCover, RNG.RollDice(LightLevelDice) \ 2,
+            RNG.RollDice(LightLevelDice)))
+        WorldData.WriteLightLevel(Id, newLightLevel)
         For Each location In Locations
             location.NextDay()
         Next
@@ -38,6 +44,12 @@
     ReadOnly Property LightLevel As Long
         Get
             Return WorldData.ReadLightLevel(Id).value
+        End Get
+    End Property
+
+    ReadOnly Property Condition As ConditionType
+        Get
+            Return CType(WorldData.ReadConditionType(Id).value, ConditionType)
         End Get
     End Property
 End Class
