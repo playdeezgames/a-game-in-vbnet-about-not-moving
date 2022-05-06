@@ -8,6 +8,7 @@ Public Enum ConditionType
     CloudCover
     HeavyRains
     HighWinds
+    SeverelyHighWinds
 End Enum
 Public Module ConditionTypeExensions
     Friend ReadOnly ConditionTypeGenerator As New Dictionary(Of ConditionType, Integer) From
@@ -18,7 +19,8 @@ Public Module ConditionTypeExensions
             {ConditionType.Drought, 15},
             {ConditionType.ExtremeDrought, 5},
             {ConditionType.HeavyRains, 20},
-            {ConditionType.HighWinds, 30}
+            {ConditionType.HighWinds, 30},
+            {ConditionType.SeverelyHighWinds, 10}
         }
     <Extension>
     Public Function Name(conditionType As ConditionType) As String
@@ -35,6 +37,8 @@ Public Module ConditionTypeExensions
                 Return "[red]extreme drought[/]"
             Case ConditionType.HighWinds
                 Return "[yellow]high winds[/]"
+            Case ConditionType.SeverelyHighWinds
+                Return "[olive]severely high winds[/]"
             Case ConditionType.None
                 Return "none"
             Case Else

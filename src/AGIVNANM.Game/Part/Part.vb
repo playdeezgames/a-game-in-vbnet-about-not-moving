@@ -108,7 +108,10 @@
             Character.ChangeResource(entry.Key, -entry.Value)
             AddDamage(damage)
         Next
-        If conditionType = ConditionType.HighWinds Then
+        If conditionType = ConditionType.SeverelyHighWinds Then
+            AddDamage(RNG.RollDice(PartType.WindDamageRoll))
+            AddDamage(RNG.RollDice(PartType.WindDamageRoll))
+        ElseIf conditionType = ConditionType.HighWinds Then
             AddDamage(RNG.RollDice(PartType.WindDamageRoll))
         End If
         PartData.WriteActions(Id, PartType.MaximumActions)
