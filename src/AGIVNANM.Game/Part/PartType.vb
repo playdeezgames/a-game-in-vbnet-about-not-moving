@@ -5,6 +5,7 @@ Public Enum PartType
     Trunk
     Leaves
     Roots
+    Branch
 End Enum
 Public Module PartTypeExtensions
     <Extension>
@@ -16,6 +17,8 @@ Public Module PartTypeExtensions
                 Return "leaves"
             Case PartType.Roots
                 Return "roots"
+            Case PartType.Branch
+                Return "branch"
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -53,7 +56,7 @@ Public Module PartTypeExtensions
     <Extension>
     Function WindDamageRoll(partType As PartType) As String
         Select Case partType
-            Case PartType.Leaves
+            Case PartType.Leaves, PartType.Branch
                 Return "1d2/2+1d2/2"
             Case Else
                 Return "0d1"
@@ -68,6 +71,12 @@ Public Module PartTypeExtensions
                 Return New Dictionary(Of ResourceType, Long) From {{ResourceType.Water, 1}}
             Case PartType.Roots
                 Return New Dictionary(Of ResourceType, Long)
+            Case PartType.Branch
+                Return New Dictionary(Of ResourceType, Long) From
+                    {
+                        {ResourceType.Sugar, 1},
+                        {ResourceType.Water, 1}
+                    }
             Case Else
                 Return New Dictionary(Of ResourceType, Long)
         End Select
@@ -83,13 +92,15 @@ Public Module PartTypeExtensions
     End Function
     <Extension>
     Function CanProduceSap(partType As PartType) As Boolean
-        Return partType = PartType.Trunk
+        Return partType = PartType.Trunk OrElse partType = PartType.Branch
     End Function
     <Extension>
     Function SapProductionDice(partType As PartType) As String
         Select Case partType
             Case PartType.Trunk
                 Return "3d2"
+            Case PartType.Branch
+                Return "2d2"
             Case Else
                 Return "0d1"
         End Select
@@ -97,5 +108,19 @@ Public Module PartTypeExtensions
     <Extension>
     Function RepairDice(partType As PartType) As String
         Return "2d2"
+    End Function
+
+    <Extension>
+    Function SapCost(partType As PartType) As Long
+        Select Case partType
+            Case PartType.Leaves
+                Return 10
+            Case PartType.Roots
+                Return 25
+            Case PartType.Branch
+                Return 15
+            Case Else
+                Return Long.MaxValue
+        End Select
     End Function
 End Module

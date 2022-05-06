@@ -85,13 +85,13 @@
 
     Public ReadOnly Property CanPhotosynthesize As Boolean
         Get
-            Return Parts.Where(Function(x) x.CanPhotosynthesize).Any
+            Return Parts.Any(Function(x) x.CanPhotosynthesize)
         End Get
     End Property
 
     Public ReadOnly Property CanAbsorbWater As Boolean
         Get
-            Return Parts.Where(Function(x) x.CanAbsorbWater).Any
+            Return Parts.Any(Function(x) x.CanAbsorbWater)
         End Get
     End Property
 
@@ -119,7 +119,7 @@
 
     ReadOnly Property CanProduceSap As Boolean
         Get
-            Return Parts.Where(Function(x) x.CanProduceSap).Any
+            Return Parts.Any(Function(x) x.CanProduceSap)
         End Get
     End Property
 
@@ -146,4 +146,15 @@
             Return Parts.Any(Function(x) x.CanRepairDamage)
         End Get
     End Property
+
+    Public Function CanGrow(partType As PartType) As Boolean
+        Return GetResource(ResourceType.Sap) >= partType.SapCost
+    End Function
+
+    Public Sub Grow(partType As PartType)
+        If CanGrow(partType) Then
+            ChangeResource(ResourceType.Sap, -partType.SapCost)
+            Part.Create(Me, Me.Location, partType)
+        End If
+    End Sub
 End Class

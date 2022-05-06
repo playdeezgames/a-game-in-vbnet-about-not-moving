@@ -5,6 +5,9 @@
     Const AbsorbWaterText = "Absorb Water"
     Const ProduceSapText = "Produce Sap"
     Const RepairDamageText = "Repair Damage"
+    Const GrowLeavesText = "Grow Leaves"
+    Const GrowBranchText = "Grow Branch"
+    Const GrowRootsText = "Grow Roots"
     Friend Sub Run()
         Dim done = False
         While Not done
@@ -34,6 +37,12 @@
                 Return ProduceSap.Run(character)
             Case RepairDamageText
                 Return RepairDamage.Run(character)
+            Case GrowLeavesText
+                Return GrowPart.Run(character, PartType.Leaves)
+            Case GrowBranchText
+                Return GrowPart.Run(character, PartType.Branch)
+            Case GrowRootsText
+                Return GrowPart.Run(character, PartType.Roots)
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -71,6 +80,15 @@
         End If
         If character.CanRepairDamage Then
             prompt.AddChoice(RepairDamageText)
+        End If
+        If character.CanGrow(PartType.Leaves) Then
+            prompt.AddChoice(GrowLeavesText)
+        End If
+        If character.CanGrow(PartType.Branch) Then
+            prompt.AddChoice(GrowBranchText)
+        End If
+        If character.CanGrow(PartType.Roots) Then
+            prompt.AddChoice(GrowRootsText)
         End If
         prompt.AddChoice(GameMenuText)
         Return prompt

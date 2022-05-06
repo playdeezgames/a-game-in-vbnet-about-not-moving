@@ -3,5 +3,4 @@
     Sub New()
         MyBase.New(PlayerData.ReadCharacter().Value)
     End Sub
-
 End Class
