@@ -123,4 +123,17 @@ Public Module PartTypeExtensions
                 Return Long.MaxValue
         End Select
     End Function
+    <Extension>
+    Function Score(partType As PartType) As Long
+        Select Case partType
+            Case PartType.Branch
+                Return 5
+            Case PartType.Roots
+                Return 1
+            Case PartType.Leaves
+                Return 3
+            Case Else
+                Return 0
+        End Select
+    End Function
 End Module

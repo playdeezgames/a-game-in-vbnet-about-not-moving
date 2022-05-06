@@ -7,6 +7,7 @@
             Return False
         End If
         character.Grow(partType)
+        character.AddScore(partType.Score)
         AnsiConsole.WriteLine($"You grow {partType.Name}.")
         OkPrompt()
         Return False

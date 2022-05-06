@@ -26,7 +26,7 @@
         Dim prompt As SelectionPrompt(Of String) = GeneratePrompt(character)
         Select Case AnsiConsole.Prompt(prompt)
             Case NextDayText
-                Return NextDay.Run()
+                Return NextDay.Run(character)
             Case GameMenuText
                 Return GameMenu.Run()
             Case PhotosynthesizeText
@@ -51,6 +51,7 @@
 
     Private Sub ReportStatus(character As PlayerCharacter)
         AnsiConsole.WriteLine("Yer alive!")
+        AnsiConsole.MarkupLine($"[fuchsia]Score: {character.Score}[/]")
         For Each part In character.DeadParts
             AnsiConsole.WriteLine($"{part.Name} is dead.")
         Next

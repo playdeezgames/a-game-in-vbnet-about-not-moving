@@ -13,6 +13,7 @@
         damageRepaired = Math.Max(Damage, Math.Min(damageRepaired, Character.GetResource(ResourceType.Sap)))
         Character.ChangeResource(ResourceType.Sap, -damageRepaired)
         AddDamage(-damageRepaired)
+        Actions -= 1
         Return damageRepaired
     End Function
 
