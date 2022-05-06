@@ -114,6 +114,8 @@
             AddDamage(RNG.RollDice(PartType.WindDamageRoll))
         ElseIf conditionType = ConditionType.HighWinds Then
             AddDamage(RNG.RollDice(PartType.WindDamageRoll))
+        ElseIf conditionType = ConditionType.Woodpeckers Then
+            AddDamage(RNG.RollDice(PartType.WoodpeckerDamageRoll))
         End If
         PartData.WriteActions(Id, PartType.MaximumActions)
     End Sub

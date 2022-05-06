@@ -63,6 +63,15 @@ Public Module PartTypeExtensions
         End Select
     End Function
     <Extension>
+    Function WoodpeckerDamageRoll(partType As PartType) As String
+        Select Case partType
+            Case PartType.Trunk, PartType.Branch
+                Return "1d2/2+1d2/2"
+            Case Else
+                Return "0d1"
+        End Select
+    End Function
+    <Extension>
     Function Upkeep(partType As PartType) As Dictionary(Of ResourceType, Long)
         Select Case partType
             Case PartType.Trunk
