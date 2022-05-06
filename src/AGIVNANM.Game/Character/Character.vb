@@ -153,6 +153,8 @@
 
     Public Sub Grow(partType As PartType)
         If CanGrow(partType) Then
+            Dim source = RNG.FromList(Parts.Select(Function(x) x.Location).ToList())
+            Dim partLocation = World.GetLocation(source.X + RNG.FromRange(-1, 1), source.Y + RNG.FromRange(-1, 1))
             ChangeResource(ResourceType.Sap, -partType.SapCost)
             Part.Create(Me, Me.Location, partType)
         End If

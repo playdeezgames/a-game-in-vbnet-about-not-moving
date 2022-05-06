@@ -52,4 +52,9 @@
             Return CType(WorldData.ReadConditionType(Id).value, ConditionType)
         End Get
     End Property
+
+    Function GetLocation(x As Long, y As Long) As Location
+        Dim locationId As Long? = LocationData.ReadForXY(x, y)
+        Return If(locationId.HasValue, New Location(locationId.Value), Location.Create(Id, x, y, LocationType.Dirt))
+    End Function
 End Class

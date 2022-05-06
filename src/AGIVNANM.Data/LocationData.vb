@@ -40,8 +40,24 @@ Public Module LocationData
         Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, LocationTypeColumn)
     End Function
 
+    Public Function ReadForXY(x As Long, y As Long) As Long?
+        Initialize()
+        Return ExecuteScalar(Of Long)(
+            $"SELECT [{LocationIdColumn}] FROM [{TableName}] WHERE [{XColumn}]=@{XColumn} AND [{YColumn}]=@{YColumn};",
+            MakeParameter($"@{XColumn}", x),
+            MakeParameter($"@{YColumn}", y))
+    End Function
+
     Public Function ReadLightLevel(locationId As Long) As Long?
         Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, LightLevelColumn)
+    End Function
+
+    Public Function ReadX(locationId As Long) As Long?
+        Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, XColumn)
+    End Function
+
+    Public Function ReadY(locationId As Long) As Long?
+        Return ReadColumnValue(Of Long)(AddressOf Initialize, TableName, LocationIdColumn, locationId, YColumn)
     End Function
 
     Public Function ReadForWorld(worldId As Long) As IEnumerable(Of Long)

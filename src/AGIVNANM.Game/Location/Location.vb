@@ -69,4 +69,15 @@
             character.NextDay(conditionType)
         Next
     End Sub
+
+    ReadOnly Property X As Long
+        Get
+            Return LocationData.ReadX(Id).Value
+        End Get
+    End Property
+    ReadOnly Property Y As Long
+        Get
+            Return LocationData.ReadY(Id).Value
+        End Get
+    End Property
 End Class
