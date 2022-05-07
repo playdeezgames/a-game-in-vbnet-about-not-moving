@@ -6,6 +6,7 @@ Public Enum PartType
     Leaves
     Roots
     Branch
+    Seeds
 End Enum
 Public Module PartTypeExtensions
     <Extension>
@@ -19,6 +20,8 @@ Public Module PartTypeExtensions
                 Return "roots"
             Case PartType.Branch
                 Return "branch"
+            Case PartType.Seeds
+                Return "seeds"
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -56,6 +59,8 @@ Public Module PartTypeExtensions
     <Extension>
     Function WindDamageRoll(partType As PartType) As String
         Select Case partType
+            Case PartType.Seeds
+                Return "1d1"
             Case PartType.Leaves, PartType.Branch
                 Return "1d2/2+1d2/2"
             Case Else
@@ -95,6 +100,8 @@ Public Module PartTypeExtensions
         Select Case partType
             Case PartType.Trunk
                 Return 10
+            Case PartType.Seeds
+                Return 1
             Case Else
                 Return 5
         End Select
@@ -128,6 +135,8 @@ Public Module PartTypeExtensions
                 Return 25
             Case PartType.Branch
                 Return 15
+            Case PartType.Seeds
+                Return 20
             Case Else
                 Return Long.MaxValue
         End Select
@@ -141,6 +150,8 @@ Public Module PartTypeExtensions
                 Return 1
             Case PartType.Leaves
                 Return 3
+            Case PartType.Seeds
+                Return 10
             Case Else
                 Return 0
         End Select

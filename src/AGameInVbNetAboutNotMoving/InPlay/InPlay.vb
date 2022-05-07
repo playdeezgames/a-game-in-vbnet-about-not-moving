@@ -8,6 +8,7 @@
     Const GrowLeavesText = "Grow Leaves"
     Const GrowBranchText = "Grow Branch"
     Const GrowRootsText = "Grow Roots"
+    Const GrowSeedsText = "Grow Seeds"
     Friend Sub Run()
         Dim done = False
         While Not done
@@ -43,6 +44,8 @@
                 Return GrowPart.Run(character, PartType.Branch)
             Case GrowRootsText
                 Return GrowPart.Run(character, PartType.Roots)
+            Case GrowSeedsText
+                Return GrowPart.Run(character, PartType.Seeds)
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -90,6 +93,9 @@
         End If
         If character.CanGrow(PartType.Roots) Then
             prompt.AddChoice(GrowRootsText)
+        End If
+        If character.CanGrow(PartType.Seeds) Then
+            prompt.AddChoice(GrowSeedsText)
         End If
         prompt.AddChoice(GameMenuText)
         Return prompt
