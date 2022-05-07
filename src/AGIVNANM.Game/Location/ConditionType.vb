@@ -11,6 +11,8 @@ Public Enum ConditionType
     SeverelyHighWinds
     AmorousDendrophiliac
     Woodpeckers
+    Termites
+    Tap
 End Enum
 Public Module ConditionTypeExensions
     Friend ReadOnly ConditionTypeGenerator As New Dictionary(Of ConditionType, Integer) From
@@ -24,6 +26,8 @@ Public Module ConditionTypeExensions
             {ConditionType.HighWinds, 30},
             {ConditionType.SeverelyHighWinds, 10},
             {ConditionType.AmorousDendrophiliac, 1},
+            {ConditionType.Termites, 1},
+            {ConditionType.Tap, 1},
             {ConditionType.Woodpeckers, 5}
         }
     <Extension>
@@ -47,6 +51,10 @@ Public Module ConditionTypeExensions
                 Return "[mediumvioletred]an amorous dendrophiliac is visiting for a romantic interlude[/]"
             Case ConditionType.Woodpeckers
                 Return "[blue]WOODPECKERS!!![/]"
+            Case conditionType.Termites
+                Return "[maroon]TERMITES!!![/]"
+            Case ConditionType.Tap
+                Return "[yellow]Yer being harvested for sap![/]"
             Case ConditionType.None
                 Return "none"
             Case Else

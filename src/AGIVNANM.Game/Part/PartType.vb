@@ -7,6 +7,7 @@ Public Enum PartType
     Roots
     Branch
     Seeds
+    Tap
 End Enum
 Public Module PartTypeExtensions
     <Extension>
@@ -22,6 +23,8 @@ Public Module PartTypeExtensions
                 Return "branch"
             Case PartType.Seeds
                 Return "seeds"
+            Case PartType.Tap
+                Return "tap"
             Case Else
                 Throw New NotImplementedException
         End Select
@@ -77,6 +80,15 @@ Public Module PartTypeExtensions
         End Select
     End Function
     <Extension>
+    Function TermiteDamageRoll(partType As PartType) As String
+        Select Case partType
+            Case PartType.Trunk, PartType.Branch
+                Return "1d2/2+1d2/2+1d2/2+1d2/2"
+            Case Else
+                Return "0d1"
+        End Select
+    End Function
+    <Extension>
     Function Upkeep(partType As PartType) As Dictionary(Of ResourceType, Long)
         Select Case partType
             Case PartType.Trunk
@@ -91,6 +103,11 @@ Public Module PartTypeExtensions
                         {ResourceType.Sugar, 1},
                         {ResourceType.Water, 1}
                     }
+            Case PartType.Tap
+                Return New Dictionary(Of ResourceType, Long) From
+                    {
+                        {ResourceType.Sap, 10}
+                    }
             Case Else
                 Return New Dictionary(Of ResourceType, Long)
         End Select
@@ -100,7 +117,7 @@ Public Module PartTypeExtensions
         Select Case partType
             Case PartType.Trunk
                 Return 10
-            Case PartType.Seeds
+            Case PartType.Seeds, PartType.Tap
                 Return 1
             Case Else
                 Return 5

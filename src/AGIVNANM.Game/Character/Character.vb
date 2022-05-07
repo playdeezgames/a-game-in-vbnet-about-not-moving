@@ -41,10 +41,19 @@
         End Get
     End Property
 
+    ReadOnly Property HasTap As Boolean
+        Get
+            Return Parts.Any(Function(x) x.PartType = PartType.Tap)
+        End Get
+    End Property
+
     Friend Sub NextDay(conditionType As ConditionType)
         For Each part In DeadParts
             part.Destroy()
         Next
+        If conditionType = ConditionType.Tap AndAlso Not HasTap Then
+            Part.Create(Me, Me.Location, PartType.Tap)
+        End If
         For Each part In Parts
             part.NextDay(conditionType)
         Next
